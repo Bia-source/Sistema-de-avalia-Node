@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { CreateUserService } from '../services/CreateUserService';
 
+// TODO vincular a tag ao seu criador 
+// TODO apagar contas e tags criadas
 class CreateUserController {
  
     async handle(request: Request, response: Response){
