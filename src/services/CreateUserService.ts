@@ -12,7 +12,8 @@ interface IRequest{
 enum ErrorsRegister{
     registerAlreadyExist = "Este email já foi cadastrado!",
     emailInvalid = "Digite um email valido!",
-    passwordInvalid = "Digite uma senha!"
+    passwordInvalid = "Digite uma senha!",
+    errorRegister = "Não foi possivel fazer o seu cadastro"
 }
 
 class CreateUserService {
