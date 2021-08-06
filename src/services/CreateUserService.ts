@@ -19,16 +19,18 @@ class CreateUserService {
   private userPassword: string;
   private newUser;
 
-  private criptoPassword = async (password: string)=>{
-    let newPasswordCript =  await hash(password, 12).then((res)=>{
+  private criptoPassword = async ({name, email, passwordUser, admin}: IRequest)=>{
+    const userRepositories = getCustomRepository(UserRepositories);
+    let newPasswordCript =  await hash(passwordUser, 12).then((res)=>{
          this.userPassword = res; 
      });
-     return newPasswordCript;
+     this.newUser = await userRepositories.create({name,email,password:this.userPassword,admin});
+     await userRepositories.save(this.newUser); 
+     return this.newUser;
   }
 
   private descriptoPassword = async(password: string)=>{
       let descripto = await compare(password,this.userPassword)
-      console.log(descripto);
   }
 
   async execute({name, email, passwordUser, admin}: IRequest){
@@ -49,13 +51,7 @@ class CreateUserService {
         throw new Error(ErrorsRegister.registerAlreadyExist);
     }
 
-    this.criptoPassword(passwordUser).finally(()=>{
-        let password = this.userPassword;
-        this.newUser = userRepositories.create({name,email,password,admin});
-    });
-
-    await userRepositories.save(this.newUser); 
-    return this.newUser;    
+    return this.criptoPassword({name, email, passwordUser, admin});;
    }
 }
 export { CreateUserService}
