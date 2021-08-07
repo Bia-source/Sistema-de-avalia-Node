@@ -1,12 +1,18 @@
 import { getCustomRepository } from 'typeorm';
 import { UserRepositories } from '../repositories/UserRepositories';
 import { hash,compare } from 'bcrypt';
+import { AuthenticateUserService } from './AuthenticateUserService';
 
 interface IRequest{
    name: string;
    email: string;
    passwordUser: string;
    admin?: boolean;
+}
+
+interface IRequestToken{
+    email: string;
+    password: string;
 }
 
 enum ErrorsRegister{
@@ -30,9 +36,7 @@ class CreateUserService {
      return this.newUser;
   }
 
-  private descriptoPassword = async(password: string)=>{
-      let descripto = await compare(password,this.userPassword)
-  }
+  
 
   async execute({name, email, passwordUser, admin}: IRequest){
     const userRepositories = getCustomRepository(UserRepositories);
@@ -54,5 +58,6 @@ class CreateUserService {
 
     return this.criptoPassword({name, email, passwordUser, admin});;
    }
+
 }
-export { CreateUserService}
+export { CreateUserService }
