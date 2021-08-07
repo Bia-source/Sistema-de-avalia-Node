@@ -26,7 +26,7 @@ class CreateUserService {
   private userPassword: string;
   private newUser;
 
-  private criptoPassword = async ({name, email, passwordUser, admin}: IRequest)=>{
+  private criptoPassword = async ({name, email, passwordUser, admin = false}: IRequest)=>{
     const userRepositories = getCustomRepository(UserRepositories);
     let newPasswordCript =  await hash(passwordUser, 12).then((res)=>{
          this.userPassword = res; 
