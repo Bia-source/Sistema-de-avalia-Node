@@ -31,7 +31,7 @@ class Compliment{
 
   @JoinColumn({name: "user_receiver"})
   @ManyToOne(() => User)
-  userReicever: User;
+  userReceiver: User;
 
 
   @JoinColumn({name: "user_sender"})
