@@ -10,6 +10,8 @@ import { ListUserReceiverComplimentsController } from "./controllers/ListUserRec
 import { ListUserSenderComplimentsController } from "./controllers/ListUserSenderComplimentsController";
 import { ListTagController } from "./controllers/ListTagController";
 import { ComplimentByIdController } from "./controllers/ComplimentByIdController";
+import { ListUsersController } from "./controllers/ListUsersController";
+import { ListUsersByAdmController } from "./controllers/ListUsersByAdmController";
 
 
 const router = Router();
@@ -21,6 +23,8 @@ const listUserReceiverComplimentsController = new ListUserReceiverComplimentsCon
 const listUserSenderComplimentsController = new ListUserSenderComplimentsController();
 const listTagController = new ListTagController();
 const complimentById = new ComplimentByIdController();
+const listUsersController = new ListUsersController();
+const listUsersByAdmController = new ListUsersByAdmController();
 
 router.post("/users",  userController.handle);
 router.post("/tags", ensureAuthenticate, ensureAdmin, tagController.handle);
@@ -30,5 +34,7 @@ router.get("/users/compliments/sender", ensureAuthenticate, listUserSenderCompli
 router.get("/users/compliments/receiver", ensureAuthenticate, listUserReceiverComplimentsController.handle);
 router.get("/tags/all", listTagController.handle);
 router.get("/users/compliment/:id", complimentById.handle);
+router.get("/users", ensureAuthenticate, ensureAdmin, listUsersController.handle);
+router.get("/users/filter/adm", ensureAuthenticate, ensureAdmin, listUsersByAdmController.handle);
 
 export { router }
