@@ -40,8 +40,6 @@ class CreateComplimentService{
         },
         relations: [ "userReceiver", "userSender", "tag"]
     });
-    //console.log("complimentReturn",complimentReturn);
-    
     
     return mapReturnCompliment(complimentReturn);
    }

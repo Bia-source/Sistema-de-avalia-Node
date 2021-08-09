@@ -12,6 +12,7 @@ import { ListTagController } from "./controllers/ListTagController";
 import { ComplimentByIdController } from "./controllers/ComplimentByIdController";
 import { ListUsersController } from "./controllers/ListUsersController";
 import { ListUsersByAdmController } from "./controllers/ListUsersByAdmController";
+import { UserSearchController } from "./controllers/UserSearchController";
 
 
 const router = Router();
@@ -25,6 +26,7 @@ const listTagController = new ListTagController();
 const complimentById = new ComplimentByIdController();
 const listUsersController = new ListUsersController();
 const listUsersByAdmController = new ListUsersByAdmController();
+const userSearchController = new UserSearchController();
 
 router.post("/users",  userController.handle);
 router.post("/tags", ensureAuthenticate, ensureAdmin, tagController.handle);
@@ -36,5 +38,6 @@ router.get("/tags/all", listTagController.handle);
 router.get("/users/compliment/:id", complimentById.handle);
 router.get("/users", ensureAuthenticate, ensureAdmin, listUsersController.handle);
 router.get("/users/filter/adm", ensureAuthenticate, ensureAdmin, listUsersByAdmController.handle);
+router.get("/users/filter/idOrName", ensureAuthenticate, userSearchController.handle);
 
 export { router }

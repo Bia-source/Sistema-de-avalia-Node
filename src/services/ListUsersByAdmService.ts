@@ -25,7 +25,6 @@ class ListUserByAdmService{
                 throw new Error("Insira um valor de admin(true or false)")
                break;
        }   
-       console.log(users);
        return classToPlain(users);
     }
 }
