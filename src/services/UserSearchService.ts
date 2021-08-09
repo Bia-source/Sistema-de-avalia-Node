@@ -11,7 +11,7 @@ interface IRequestSearch{
 }
 
 class UserSearchService{
-   async execute(searchUser:string){
+   async execute(searchUser:string,admin:boolean){
      const userRepository = getCustomRepository(UserRepositories);
      let user;
      if(!user){
@@ -35,12 +35,15 @@ class UserSearchService{
         }
         });   
      };
-     return classToPlain(user);
+     return classToPlain(mapResponseUser(user,admin));
    }
 }
 
- async function mapResponseUser(user:User){
-    const userMap = await {
+ async function mapResponseUser(user:User, admin:boolean){
+   if(admin === true){
+      return user;
+   }
+   const userMap = await {
         id: user.id,
         name: user.name,
         email: user.email
