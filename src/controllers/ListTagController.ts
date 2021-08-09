@@ -5,7 +5,7 @@ class ListTagController{
     async handle(request:Request, response: Response){
       const listTagService = new ListTagService()
       const tags = await listTagService.execute();
-      return response.json(tags);
+      return response.json({tags:tags});
     }
 }
 

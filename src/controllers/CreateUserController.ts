@@ -15,7 +15,7 @@ class CreateUserController {
          passwordUser: password, 
          admin}); 
  
-        return response.json(user);
+        return response.json({user:user});
        } catch (error) {
            return response.json({message: error.message});
        }
