@@ -13,7 +13,7 @@ class UpdateUserService{
    async execute(requestUpdate:IRequest){
        const userRepository = getCustomRepository(UserRepositories);
        const { id } = requestUpdate;
-       const { admin, created_at, update_at, email, name } = await userRepository.findOne({
+       const { admin, created_at, email, name } = await userRepository.findOne({
            where: {id:id}
        });
     
@@ -25,7 +25,7 @@ class UpdateUserService{
         created_at,
         update_at: new Date()
        }
-       const updateUser = await userRepository.update(id, changeUser);
+       await userRepository.update(id, changeUser);
        const user = await userRepository.findOne({where: {id:id}});
        return classToPlain(user);
    }

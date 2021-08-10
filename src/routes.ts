@@ -14,6 +14,8 @@ import { ListUsersController } from "./controllers/ListUsersController";
 import { ListUsersByAdmController } from "./controllers/ListUsersByAdmController";
 import { UserSearchController } from "./controllers/UserSearchController";
 import { UpdateUserController } from "./controllers/UpdateUserController";
+import { UpdateStatAdminController } from "./controllers/UpdateStateAdminController";
+import { DeleteUserController } from "./controllers/DeleteUserController";
 
 
 const router = Router();
@@ -29,6 +31,8 @@ const listUsersController = new ListUsersController();
 const listUsersByAdmController = new ListUsersByAdmController();
 const userSearchController = new UserSearchController();
 const updateUserController = new UpdateUserController();
+const updateStateAdminController = new UpdateStatAdminController();
+const deleteUserController = new DeleteUserController();
 
 router.post("/users",  userController.handle);
 router.post("/tags", ensureAuthenticate, ensureAdmin, tagController.handle);
@@ -42,4 +46,8 @@ router.get("/users", ensureAuthenticate, ensureAdmin, listUsersController.handle
 router.get("/users/filter/adm", ensureAuthenticate, listUsersByAdmController.handle);
 router.get("/users/filter/idOrName", ensureAuthenticate, userSearchController.handle);
 router.put("/user", ensureAuthenticate, updateUserController.handle);
+router.patch("/adm/user/updateAdm", ensureAuthenticate, ensureAdmin, updateStateAdminController.handle);
+// TODO ROUTE DELETE
+// router.delete("/adm/user/delete", ensureAuthenticate, ensureAdmin, deleteUserController.handle);
+
 export { router }
