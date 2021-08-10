@@ -1,5 +1,5 @@
 import { compare } from 'bcrypt';
-import { CreateUserService } from '../services/CreateUserService';
+import { CreateUserService } from '../services/UserService/CreateUserService';
 
 interface IParamsUser{
     password?: string;
