@@ -3,17 +3,15 @@ import { ListUserReceiverComplimentsService } from "../services/ListUserReceiver
 
 class ListUserReceiverComplimentsController{
    async handle(request:Request, response:Response){
-       const {user_id, admin} = request;
+       const { user_id, admin } = request;
+       const { filter } = request.body;
        const listUserReceiveService = new ListUserReceiverComplimentsService();
-       if(admin === true){
+        if(filter) {
+            const compliments = await listUserReceiveService.execute(user_id,admin,filter);
+            return response.json({listReceive: compliments});
+        }
         const compliments = await listUserReceiveService.execute(user_id,admin);
         return response.json({listReceive: compliments});
-       }
-       const compliments = await listUserReceiveService.execute(user_id);
-       return response.json({listReceive: compliments});
-       
-       
-       
    }
 }
 

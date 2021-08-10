@@ -39,7 +39,7 @@ router.get("/users/compliments/receiver", ensureAuthenticate, listUserReceiverCo
 router.get("/tags/all", listTagController.handle);
 router.get("/users/compliment/:id", complimentById.handle);
 router.get("/users", ensureAuthenticate, ensureAdmin, listUsersController.handle);
-router.get("/users/filter/adm", ensureAuthenticate, ensureAdmin, listUsersByAdmController.handle);
+router.get("/users/filter/adm", ensureAuthenticate, listUsersByAdmController.handle);
 router.get("/users/filter/idOrName", ensureAuthenticate, userSearchController.handle);
 router.put("/user", ensureAuthenticate, updateUserController.handle);
 export { router }

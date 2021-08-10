@@ -3,7 +3,7 @@ import { ListUserByAdmService } from "../services/ListUsersByAdmService";
 
 class ListUsersByAdmController{
     async handle(request: Request, response: Response){
-        const { admin } = request.body;
+        const { admin } = request;
         const listUsersService = new ListUserByAdmService();
         const listUsers = await listUsersService.execute(admin);
         return response.json({list_users:listUsers});
