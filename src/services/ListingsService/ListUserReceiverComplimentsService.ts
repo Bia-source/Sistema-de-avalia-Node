@@ -3,7 +3,6 @@ import { getCustomRepository } from "typeorm"
 import { ComplimentRepositories } from "../../repositories/ComplimentRepositories";
 import {
   MapComplimentsReceiverComplete,
-  MapComplimentsReceiverFilterAdm,
   MapComplimentsReceiver,
   MapComplimentsReceiverFilterNotAdm
 } from "./maps.index";
@@ -57,7 +56,7 @@ class ListUserReceiverComplimentsService{
           relations: ["userSender", "userReceiver", "tag"]
       });
       }
-     if (admin && filter) return classToPlain(MapComplimentsReceiverFilterAdm(filterCompliments));
+     if (admin && filter) return classToPlain(MapComplimentsReceiverComplete(filterCompliments));
      if (admin && !filter) return classToPlain(MapComplimentsReceiverComplete(compliments));
      if (!admin && filter) return classToPlain(MapComplimentsReceiverFilterNotAdm(filterCompliments))
      return classToPlain(MapComplimentsReceiver(compliments));

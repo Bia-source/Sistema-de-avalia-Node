@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm"
-import { MapComplimentById } from "./maps.index";
+import { MapReturnCompliment } from "./maps.index";
 import { ComplimentRepositories } from "../../repositories/ComplimentRepositories"
 
 
@@ -12,7 +12,7 @@ class ComplimentByIdService{
        },
        relations: ["tag", "userSender", "userReceiver"]
     });  
-    return MapComplimentById(compliment);
+    return MapReturnCompliment(compliment);
    }
 }
 

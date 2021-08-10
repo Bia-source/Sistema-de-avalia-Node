@@ -50,31 +50,6 @@
   return compliments;
 }
 
-export async function MapComplimentsReceiverFilterAdm(rating) {
-  const compliments = await {
-      message: {
-        message_id: rating.id,
-        message_text: rating.message,
-        created_at: rating.created_at,
-        tag_name: {
-          tag_name: rating.tag.name,
-          tag_id: rating.tag.id
-        },
-      },
-      user_sender: {
-        user_sender_id: rating.userSender.id,
-        user_sender_name: rating.userSender.name,
-        user_sender_created_at: rating.userSender.created_at
-      },
-      user_receiver: {
-        user_receiver_id: rating.userReceiver.id,
-        user_receiver_name: rating.userReceiver.name,
-        user_receiver_created_at: rating.userReceiver.created_at
-      },
-    }
-  return compliments;
-}
-
 export async function MapComplimentsReceiverFilterNotAdm(rating) {
     const compliments = await {   
           message:{

@@ -1,7 +1,7 @@
 import { getCustomRepository } from "typeorm"
 import { ComplimentRepositories } from "../../repositories/ComplimentRepositories"
 import { UserRepositories } from "../../repositories/UserRepositories";
-import { MapReturnComplimentCreate } from "./maps.index";
+import { MapReturnCompliment } from "./maps.index";
 
 interface IComplimentRequest{
     tag_id: string;
@@ -42,7 +42,7 @@ class CreateComplimentService{
         relations: [ "userReceiver", "userSender", "tag"]
     });
     
-    return MapReturnComplimentCreate(complimentReturn);
+    return MapReturnCompliment(complimentReturn);
    }
 }
 
