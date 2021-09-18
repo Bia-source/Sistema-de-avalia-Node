@@ -2,8 +2,9 @@ import { getCustomRepository } from "typeorm"
 import { UserRepositories } from "../../repositories/UserRepositories"
 import { UserProvider } from '../../Provider/UserProvider';
 import { sign } from 'jsonwebtoken';
+import { classToPlain } from "class-transformer";
 
-interface IAuthenticateRequestUser{
+interface ILoginRequestUser{
     email: string;
     password: string;
 }
@@ -12,30 +13,35 @@ enum MessageError{
     EMAIL_INVALID = "Email/Password invalido"
 }
 
-class AuthenticateUserService{
-   async execute({email, password}: IAuthenticateRequestUser){
+class LoginUserService{
+   async execute({email, password}: ILoginRequestUser){
     const userRepositories = getCustomRepository(UserRepositories);
-    const userAlreadyExist = await userRepositories.findOne({email});
     const userProvider = new UserProvider(); 
-    if(!userAlreadyExist){
+    const user = await userRepositories.findOne({
+        where: {
+            email,
+        }
+    });
+
+    if(!user){
            throw new Error (MessageError.EMAIL_INVALID);
        }
 
-    let passwordIsCorrect = await userProvider.validationPassword({password, paramPassword: userAlreadyExist.password});
+    let passwordIsCorrect = await userProvider.validationPassword({password, paramPassword: user.password});
     
     if(!passwordIsCorrect){
         throw new Error (MessageError.EMAIL_INVALID);
     }
 
     const token = sign({
-        email: userAlreadyExist.email
+        email: user.email
     },"89489fdfb30ed98117df52bb589a46ad",{
-    subject: userAlreadyExist.id,
+    subject: user.id,
     expiresIn: "1d"
     });
-
-    return token;
+    userProvider.setState(user, token);
+    return {token: token, user: classToPlain(user)};
    }
 }
 
-export { AuthenticateUserService }
+export { LoginUserService }

@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { UserRepositories } from '../../repositories/UserRepositories';
 import { hash,compare } from 'bcrypt';
-import { AuthenticateUserService } from './AuthenticateUserService';
+import { LoginUserService } from './LoginUserService';
 
 interface IRequest{
    name: string;
@@ -28,7 +28,7 @@ class CreateUserService {
 
   private criptoPassword = async ({name, email, passwordUser, admin = false}: IRequest)=>{
     const userRepositories = getCustomRepository(UserRepositories);
-    let newPasswordCript =  await hash(passwordUser, 12).then((res)=>{
+    await hash(passwordUser, 12).then((res)=>{
          this.userPassword = res; 
      });
      this.newUser = await userRepositories.create({name,email,password:this.userPassword,admin});
