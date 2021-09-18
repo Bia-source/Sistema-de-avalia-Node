@@ -4,9 +4,9 @@ import { ChangePriceCupomService } from "../../services/CupomService/ChangePrice
 
 class InsertCupomController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id_product, id_cupom } = request.body;
+        const { productIdOrName, cupomIdOrName } = request.body;
         const cupomService = new ChangePriceCupomService();
-        const applicationCupom = await cupomService.execute(id_product, id_cupom);
+        const applicationCupom = await cupomService.execute(productIdOrName, cupomIdOrName);
         return response.status(200).json({applicationCupom});
     }
 }
