@@ -1,30 +1,30 @@
 Arguments: 
-  /Users/bfsantos/.nvm/versions/node/v14.13.0/bin/node /Users/bfsantos/.yarn/bin/yarn.js add class-tranformer
+  /Users/bfsantos/.nvm/versions/node/v14.17.6/bin/node /Users/bfsantos/.yarn/releases/yarn-1.22.11.cjs add @types/nodemaile -d
 
 PATH: 
-  /Users/bfsantos/.yarn/bin:/Users/bfsantos/.config/yarn/global/node_modules/.bin:/usr/local/opt/rbenv/shims:/Users/bfsantos/.nvm/versions/node/v14.13.0/bin:/Users/bfsantos/.fastlane/bin/fastlane_lib:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/bfsantos/.yarn/bin:/Users/bfsantos/.config/yarn/global/node_modules/.bin:/Users/bfsantos/.rbenv/shims:/Users/bfsantos/.nvm/versions/node/v14.13.0/bin:/Users/bfsantos/.fastlane/bin/fastlane_lib:/Users/bfsantos/Library/Android/sdk/emulator:/Users/bfsantos/Library/Android/sdk/tools:/Users/bfsantos/Library/Android/sdk/tools/bin:/Users/bfsantos/Library/Android/sdk/platform-tools:/Users/bfsantos/Library/Android/sdk/emulator:/Users/bfsantos/Library/Android/sdk/tools:/Users/bfsantos/Library/Android/sdk/tools/bin:/Users/bfsantos/Library/Android/sdk/platform-tools
+  /Users/bfsantos/.nvm/versions/node/v14.17.6/bin:/Users/bfsantos/.nvm/versions/node/v12.22.5/bin:/Users/bfsantos/.gem/bin:/Users/bfsantos/.nvm/versions/node/v10.14.2/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/bfsantos/.gem/bin:/Users/bfsantos/.nvm/versions/node/v10.14.2/bin:/Users/bfsantos/.npm-global/bin
 
 Yarn version: 
-  1.22.5
+  1.22.11
 
 Node version: 
-  14.13.0
+  14.17.6
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/class-tranformer: Not found
-      at Request.params.callback [as _callback] (/Users/bfsantos/.yarn/lib/cli.js:66988:18)
-      at Request.self.callback (/Users/bfsantos/.yarn/lib/cli.js:140749:22)
-      at Request.emit (events.js:314:20)
-      at Request.<anonymous> (/Users/bfsantos/.yarn/lib/cli.js:141721:10)
-      at Request.emit (events.js:314:20)
-      at IncomingMessage.<anonymous> (/Users/bfsantos/.yarn/lib/cli.js:141643:12)
-      at Object.onceWrapper (events.js:420:28)
-      at IncomingMessage.emit (events.js:326:22)
-      at endReadableNT (_stream_readable.js:1252:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  Error: https://registry.yarnpkg.com/@types%2fnodemaile: Not found
+      at Request.params.callback [as _callback] (/Users/bfsantos/.yarn/releases/yarn-1.22.11.cjs:78522:18)
+      at Request.self.callback (/Users/bfsantos/.yarn/releases/yarn-1.22.11.cjs:135174:22)
+      at Request.emit (events.js:400:28)
+      at Request.<anonymous> (/Users/bfsantos/.yarn/releases/yarn-1.22.11.cjs:136146:10)
+      at Request.emit (events.js:400:28)
+      at IncomingMessage.<anonymous> (/Users/bfsantos/.yarn/releases/yarn-1.22.11.cjs:136068:12)
+      at Object.onceWrapper (events.js:519:28)
+      at IncomingMessage.emit (events.js:412:35)
+      at endReadableNT (internal/streams/readable.js:1317:12)
+      at processTicksAndRejections (internal/process/task_queues.js:82:21)
 
 npm manifest: 
   {
@@ -39,16 +39,19 @@ npm manifest:
     "devDependencies": {
       "@types/bcrypt": "^5.0.0",
       "@types/express": "^4.17.12",
-      "@types/jsonwebtoken": "^8.5.4",
+      "@types/jsonwebtoken": "^8.5.5",
       "@types/uuid": "^8.3.1",
       "ts-node-dev": "^1.1.6",
       "typescript": "^4.3.3"
     },
     "dependencies": {
+      "@types/es6-promise": "^3.3.0",
       "bcrypt": "^5.0.1",
+      "class-transformer": "^0.4.0",
       "express": "^4.17.1",
       "express-async-errors": "^3.1.1",
       "jsonwebtoken": "^8.5.1",
+      "nodemailer": "^6.6.3",
       "reflect-metadata": "^0.1.13",
       "sqlite3": "^5.0.2",
       "typeorm": "^0.2.36",
@@ -106,6 +109,13 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
+  "@types/es6-promise@^3.3.0":
+    version "3.3.0"
+    resolved "https://registry.yarnpkg.com/@types/es6-promise/-/es6-promise-3.3.0.tgz#61b55e554fd807b563f158a7986ee53d3a5a5a9d"
+    integrity sha512-ixCIAEkLUKv9movnHKCzx2rzAJgEnSALDXPrOSSwOjWwXFs0ssSZKan+O2e3FExPPCbX+DfA9NcKsbvLuyUlNA==
+    dependencies:
+      es6-promise "*"
+  
   "@types/express-serve-static-core@^4.17.18":
     version "4.17.24"
     resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.24.tgz#ea41f93bf7e0d59cd5a76665068ed6aab6815c07"
@@ -125,10 +135,10 @@ Lockfile:
       "@types/qs" "*"
       "@types/serve-static" "*"
   
-  "@types/jsonwebtoken@^8.5.4":
-    version "8.5.4"
-    resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-8.5.4.tgz#50ccaf0aa6f5d7b9956e70fe323b76e582991913"
-    integrity sha512-4L8msWK31oXwdtC81RmRBAULd0ShnAHjBuKT9MRQpjP0piNrZdXyTRcKY9/UIfhGeKIT4PvF5amOOUbbT/9Wpg==
+  "@types/jsonwebtoken@^8.5.5":
+    version "8.5.5"
+    resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-8.5.5.tgz#da5f2f4baee88f052ef3e4db4c1a0afb46cff22c"
+    integrity sha512-OGqtHQ7N5/Ap/TUwO6IgHDuLiAoTmHhGpNvgkCm/F4N6pKzx/RBSfr2OXZSwC6vkfnsEdb6+7DNZVtiXiwdwFw==
     dependencies:
       "@types/node" "*"
   
@@ -450,6 +460,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
     integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
   
+  class-transformer@^0.4.0:
+    version "0.4.0"
+    resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.4.0.tgz#b52144117b423c516afb44cc1c76dbad31c2165b"
+    integrity sha512-ETWD/H2TbWbKEi7m9N4Km5+cw1hNcqJSxlSYhsLsNjQzWWiZIYA1zafxpK9PwVfaZ6AqR5rrjPVUBGESm5tQUA==
+  
   cli-highlight@^2.1.11:
     version "2.1.11"
     resolved "https://registry.yarnpkg.com/cli-highlight/-/cli-highlight-2.1.11.tgz#49736fa452f0aaf4fae580e30acb26828d2dc1bf"
@@ -641,6 +656,11 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
     integrity sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
+  
+  es6-promise@*:
+    version "4.2.8"
+    resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
+    integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
   
   escalade@^3.1.1:
     version "3.1.1"
@@ -1358,6 +1378,11 @@ Lockfile:
       rimraf "^2.6.1"
       semver "^5.3.0"
       tar "^4"
+  
+  nodemailer@^6.6.3:
+    version "6.6.3"
+    resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.6.3.tgz#31fb53dd4d8ae16fc088a65cb9ffa8d928a69b48"
+    integrity sha512-faZFufgTMrphYoDjvyVpbpJcYzwyFnbAMmQtj1lVBYAUSm3SOy2fIdd9+Mr4UxPosBa0JRw9bJoIwQn+nswiew==
   
   "nopt@2 || 3":
     version "3.0.6"

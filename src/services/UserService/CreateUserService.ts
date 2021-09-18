@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { UserRepositories } from '../../repositories/UserRepositories';
-import { hash,compare } from 'bcrypt';
-import { LoginUserService } from './LoginUserService';
+import { hash } from 'bcrypt';
+import * as nodemailer from "nodemailer";
 
 interface IRequest{
    name: string;
@@ -33,9 +33,32 @@ class CreateUserService {
      });
      this.newUser = await userRepositories.create({name,email,password:this.userPassword,admin});
      await userRepositories.save(this.newUser); 
+     this.sendMail(email);
      return this.newUser;
   }
 
+    private sendMail= async (email: string)=> {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: "fernandesferreirinha9@gmail.com",
+                pass: "bia12248665",
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        
+        const mailSend = await transporter.sendMail({
+            text: "Usuario criado com sucesso!🚀",
+            subject: "Cadastro no NLW",
+            from: 'Ferreirinha',
+            to: ['bia_ferreirads@yahoo.com']
+        });
+        console.log(mailSend);
+  } 
   
 
   async execute({name, email, passwordUser, admin}: IRequest){
