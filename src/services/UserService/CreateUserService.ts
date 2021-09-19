@@ -3,6 +3,7 @@ import { UserRepositories } from '../../repositories/UserRepositories';
 import { hash } from 'bcrypt';
 import * as nodemailer from "nodemailer";
 import { CONFIG } from '../../configEmail/configEmail';
+import { classToPlain } from 'class-transformer';
 
 interface IRequest{
    name: string;
@@ -35,7 +36,7 @@ class CreateUserService {
      this.newUser = await userRepositories.create({name,email,password:this.userPassword,admin});
      await userRepositories.save(this.newUser); 
      this.sendMail(email, name);
-     return this.newUser;
+     return classToPlain(this.newUser);
   }
 
   private sendMail= async (email: string, username: string)=> {
