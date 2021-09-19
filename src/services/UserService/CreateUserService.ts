@@ -2,6 +2,7 @@ import { getCustomRepository } from 'typeorm';
 import { UserRepositories } from '../../repositories/UserRepositories';
 import { hash } from 'bcrypt';
 import * as nodemailer from "nodemailer";
+import { CONFIG } from '../../configEmail/configEmail';
 
 interface IRequest{
    name: string;
@@ -27,37 +28,38 @@ class CreateUserService {
   private newUser;
 
   private criptoPassword = async ({name, email, passwordUser, admin = false}: IRequest)=>{
-    const userRepositories = getCustomRepository(UserRepositories);
-    await hash(passwordUser, 12).then((res)=>{
+     const userRepositories = getCustomRepository(UserRepositories);
+     await hash(passwordUser, 12).then((res)=>{
          this.userPassword = res; 
      });
      this.newUser = await userRepositories.create({name,email,password:this.userPassword,admin});
      await userRepositories.save(this.newUser); 
-     this.sendMail(email);
+     this.sendMail(email, name);
      return this.newUser;
   }
 
-    private sendMail= async (email: string)=> {
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false,
-            auth: {
-                user: "fernandesferreirinha9@gmail.com",
-                pass: "bia12248665",
-            },
-            tls: {
-                rejectUnauthorized: false
-            }
+  private sendMail= async (email: string, username: string)=> {
+     const transporter = nodemailer.createTransport({
+        host: CONFIG.HOST,
+        port: CONFIG.PORT,
+        secure: false,
+        auth: {
+            user: CONFIG.USER_MAIL,
+            pass: CONFIG.PASSWORD_MAIL,
+        },
+        tls: {
+           rejectUnauthorized: false
+        }
         });
         
-        const mailSend = await transporter.sendMail({
-            text: "Usuario criado com sucesso!🚀",
-            subject: "Cadastro no NLW",
-            from: 'Ferreirinha',
-            to: ['bia_ferreirads@yahoo.com']
+     const send = await transporter.sendMail({
+        text: `${username} bem vindo(a) a bordo, usuário criado com sucesso!🚀`,
+        subject: "Cadastro no sistema de avaliação",
+        from: `Administração SA <${CONFIG.USER_MAIL}>`,
+        to: [`${email}`]
         });
-        console.log(mailSend);
+
+      return send;
   } 
   
 
