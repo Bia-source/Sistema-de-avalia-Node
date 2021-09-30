@@ -10,7 +10,7 @@ class Cart {
     value_total: number;
 
     @Column()
-    itens: string;
+    itens?: string;
 
     @Column()
     id_cupom: string;
