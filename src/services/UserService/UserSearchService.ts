@@ -11,15 +11,16 @@ interface IRequestSearch{
 }
 
 class UserSearchService{
-   async execute(searchUser:string,admin:boolean){
+   async execute(searchUser:string,admin:boolean): Promise<Object>{
      const userRepository = getCustomRepository(UserRepositories);
      let user;
+
      if(!user){
         user = await userRepository.findOne({
          where: {
          id:searchUser
         }
-        });         
+        }); 
      }
      if(!user){
         user = await userRepository.findOne({
@@ -33,8 +34,9 @@ class UserSearchService{
           where: {
           name:searchUser
         }
-        });   
-     };
+        }); 
+      };
+      
      return classToPlain(MapResponseUser(user,admin));
    }
 }

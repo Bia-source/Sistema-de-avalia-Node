@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { cartRoute } from "./cart.routes";
 import { complimentRoute } from "./compliment.routes";
 import { cupomRoute } from "./cupom.routes";
 import { listingRoute } from "./listings.routes";
@@ -13,6 +14,7 @@ router.use("/tag", tagRoutes);
 router.use("/compliment", complimentRoute);
 router.use("/product", productRoute);
 router.use("/cupom", cupomRoute);
+router.use("/cart", cartRoute);
 
 //const deleteUserController = new DeleteUserController();
 // TODO ROUTE DELETE
