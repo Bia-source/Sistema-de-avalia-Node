@@ -28,6 +28,8 @@ interface UpdateStock {
     quantity: number;
 }
 
+
+
 class InsertProductCartService {
     async execute({itens, id_cupom}: IRequest) {
         const cartRepository = getCustomRepository(CartRepositories);
@@ -36,9 +38,9 @@ class InsertProductCartService {
         let total: number = 0;
         let nameProduct: string[] = [];
         let ids: string[] = [];
-        let returnCart: ICart; 
+        let returnCart; 
         let quantidade: UpdateStock;
-        
+        let id_cart: string;
         itens.forEach(async (product) => {
             let product_id = await productRepository.findOne({ product_name: product.product_name });
             ids.push(product_id.id);
@@ -61,11 +63,14 @@ class InsertProductCartService {
                     product_category: updateProduct.product_category,
                     quantity_stock: updateProduct.quantity_stock - quantidade.quantity
                  }
+            
             await productRepository.update(product_id.id, newProductStock);
         });
         
         setTimeout(async () => {
-            itens.forEach(async (res) => {
+           
+        },0);
+         itens.forEach(async (res) => {
                 let numberItem = itens.indexOf(res);
                 const newCart = {
                     id: ids[numberItem],
@@ -87,6 +92,7 @@ class InsertProductCartService {
                 itens: nameProduct[0],
                 id_cupom: id_cupom
             });
+            id_cart = cartN.id;
             
             await cartRepository.save(cartN);
         
@@ -110,16 +116,20 @@ class InsertProductCartService {
                     await cartRepository.update(cartN.id, cartUpdate);
                 }
             });
+            // returnCart = {
+            //     id: cartN.id,
+            //     itens: nameProduct,
+            //     totalPrice: total,
+            //     id_cupom: id_cupom || "Não possui"
+            // }
+            //console.log(returnCart);
             returnCart = {
-                id: cartN.id,
+                id: id_cart,
                 itens: nameProduct,
                 totalPrice: total,
                 id_cupom: id_cupom || "Não possui"
-            }
-            //console.log(returnCart);
-        }, 200);
-        console.log(returnCart);
-        return "ola";
+            };
+        return returnCart;
     }
 
     private async getDataProduct(name: string) {

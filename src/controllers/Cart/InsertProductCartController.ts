@@ -5,9 +5,9 @@ class InsertProductCartController{
     async handle(request: Request, response: Response): Promise<Response>{
         const { itens, id_cupom } = request.body;
         const cartInsertService = new InsertProductCartService();
-        const insert = await cartInsertService.execute({ itens, id_cupom });
-        console.log("INSERT ",insert);
-        return response.json({ insert });
+        const cart = await cartInsertService.execute({ itens, id_cupom });
+        console.log("INSERT ",cart);
+        return response.json({ cart });
     }
 }
 
