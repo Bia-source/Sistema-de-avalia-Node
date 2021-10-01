@@ -6,6 +6,7 @@ class InsertProductCartController{
         const { itens, id_cupom } = request.body;
         const cartInsertService = new InsertProductCartService();
         const insert = await cartInsertService.execute({ itens, id_cupom });
+        console.log("INSERT ",insert);
         return response.json({ insert });
     }
 }
