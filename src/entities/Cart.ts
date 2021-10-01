@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 @Entity("cart")
 class Cart {
     @PrimaryColumn()
-    id: string;
+    readonly id: string;
 
     @Column()
     value_total: number;
