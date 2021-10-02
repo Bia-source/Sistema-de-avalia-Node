@@ -4,14 +4,20 @@ import { Cart } from "../../entities/Cart";
 import { Product } from "../../entities/Product";
 import { CartRepositories } from "../../repositories/CartRepositories";
 import { ProductRepositories } from "../../repositories/ProductRepositories";
+import { ChangePriceCupomService } from "../CupomService/ChangePriceCupomService";
 
+interface IItensRequest {
+    product_name: string;
+    product_category?: string;
+    quantity_stock: number;
+}
 interface IRequest {
-    itens: Product[];
+    itens: IItensRequest[];
     id_cupom?: string; 
 }
 
 interface IItem {
-    id: string;
+    id?: string;
     product_name: string;
     product_category: string;
     value: number;
@@ -25,10 +31,9 @@ interface ICart {
 }
 
 interface UpdateStock {
-    quantity: number;
+    product_name?: string;
+    quantity?: number;
 }
-
-
 
 class InsertProductCartService {
     async execute({itens, id_cupom}: IRequest) {
@@ -37,105 +42,126 @@ class InsertProductCartService {
         const cart: IItem[] = [];
         let total: number = 0;
         let nameProduct: string[] = [];
-        let ids: string[] = [];
         let returnCart; 
-        let quantidade: UpdateStock;
+        const quantidade: UpdateStock[] = [];
         let id_cart: string;
-        itens.forEach(async (product) => {
-            let product_id = await productRepository.findOne({ product_name: product.product_name });
-            ids.push(product_id.id);
-            quantidade = {
-                quantity: product.quantity_stock
-            }
+        let productItem: any[] = [];
+        let cartN;
+        const productsPriceTotal: Product[] = [];
+        
+        itens.forEach(async product => {
+            quantidade.push({
+                product_name: product.product_name,
+                quantity: product.quantity_stock,
+            }); 
+
+            nameProduct.push(product.product_name);
+
+            let numberIndex = itens.indexOf(product);
+            let getProduct = await productRepository.findOne({
+                where: {
+                    product_name: quantidade[numberIndex].product_name
+                }
+            });
+            productItem.push(getProduct);
 
             // atualizando quantidade em estoque
-            let updateProduct = await productRepository.findOne({
-                where: {
-                    id: product_id.id
-                }
-            });
-            
-                let newProductStock;
+            let newProductStock;
 
                  newProductStock = {
-                    id: updateProduct.id,
-                    product_name: updateProduct.product_name,
-                    product_category: updateProduct.product_category,
-                    quantity_stock: updateProduct.quantity_stock - quantidade.quantity
+                    id: productItem[numberIndex].id,
+                    product_name: productItem[numberIndex].product_name,
+                    product_category: productItem[numberIndex].product_category,
+                    quantity_stock: productItem[numberIndex].quantity_stock - quantidade[numberIndex].quantity
                  }
-            
-            await productRepository.update(product_id.id, newProductStock);
+            console.log("newProductStock", newProductStock);
+            await productRepository.update(productItem[numberIndex].id, newProductStock);
         });
         
-        setTimeout(async () => {
-           
-        },0);
-         itens.forEach(async (res) => {
-                let numberItem = itens.indexOf(res);
-                const newCart = {
-                    id: ids[numberItem],
-                    product_name: res.product_name,
-                    product_category: res.product_category,
-                    value: res.value
-                }
-                cart.push(newCart);
-                total = total + res.value;
-                nameProduct.push(res.product_name);
-            
-            });
-    
-            console.log(total, cart);
+        console.log("quantidade", quantidade);
+        console.log("product_name", nameProduct);
         
-            // criando carrinho 
-            const cartN = await cartRepository.create({
-                value_total: total,
-                itens: nameProduct[0],
-                id_cupom: id_cupom
-            });
-            id_cart = cartN.id;
-            
-            await cartRepository.save(cartN);
+        setTimeout(() => {
+            console.log("productItem", productItem);
+        },100)
+       
+     
+        // itens.forEach(async (res) => {
+        //     let numberItem = itens.indexOf(res);
+        //     const newCart = {
+        //         product_name: res.product_name,
+        //         product_category: res.product_category,
+        //         value: res.value
+        //     }
+        //     cart.push(newCart);
+        //     total = total + res.value;
+        //     nameProduct.push(res.product_name);
+        //     });
         
-           
-            // adicionando novos produtos no carrinho
-            itens.forEach(async (res) => {
-                let numberItem = itens.indexOf(res);
-                let alreadyExistProduct = nameProduct.find((product) => product === res.product_name);
-                if(!alreadyExistProduct) {
-                    total = total + res.value;
-                    nameProduct.push(res.product_name);
-                }
+        //     // criando carrinho 
+        // if(id_cart) {
+        //     console.log("entrei");
+        //         const newCart = await cartRepository.create({
+        //         value_total: total,
+        //         itens: nameProduct[0],
+        //         id_cupom: id_cupom
+        //         });
+        //         cartN = newCart;  
+        //         id_cart = newCart.id;
+        //         await cartRepository.save(newCart);
+        //     }
     
-                const cartUpdate = {
-                    value_total: total,
-                    itens: nameProduct[numberItem],
-                    id_cupom: id_cupom
-                };
+        //     // adicionando novos produtos no carrinho
+        //     itens.forEach(async (res) => {
+        //         let numberItem = itens.indexOf(res);
+        //         let alreadyExistProduct = nameProduct.find((product) => product === res.product_name);
+        //         if(!alreadyExistProduct) {
+        //             total = total + res.value;
+        //             nameProduct.push(res.product_name);
+        //         }
+    
+        //         const cartUpdate = {
+        //             value_total: total,
+        //             itens: nameProduct[numberItem],
+        //             id_cupom: id_cupom
+        //         };
 
-                if(cartN.id && nameProduct.length > 0) {
-                    await cartRepository.update(cartN.id, cartUpdate);
-                }
-            });
-            // returnCart = {
-            //     id: cartN.id,
-            //     itens: nameProduct,
-            //     totalPrice: total,
-            //     id_cupom: id_cupom || "Não possui"
-            // }
-            //console.log(returnCart);
-            returnCart = {
-                id: id_cart,
-                itens: nameProduct,
-                totalPrice: total,
-                id_cupom: id_cupom || "Não possui"
-            };
-        return returnCart;
+        //         if(cartN.id && nameProduct.length > 0) {
+        //             await cartRepository.update(cartN.id, cartUpdate);
+        //         }
+        //     });
+        
+        //     returnCart = {
+        //         id: id_cart,
+        //         itens: nameProduct,
+        //         totalPrice: id_cupom ? await this.applicationCupom(id_cupom, total) : parseFloat(total.toFixed(2)),
+        //         id_cupom: id_cupom || "Não possui"
+        //     };
+
+        // console.log("Total",total);
+        // return returnCart;
     }
 
     private async getDataProduct(name: string) {
         const productRepository = getCustomRepository(ProductRepositories);
         const product = await productRepository.findOne({ product_name: name });
         return product.id;
+    }
+
+    private calculatorPrice(itens: Product[]): number{
+        let priceTotal: number;
+        let teste = itens.forEach((item) => {
+           return priceTotal + item.value;
+            //console.log("OSOSO", priceTotal);
+        });
+        
+        return priceTotal;
+    }
+
+    private async applicationCupom(id_cupom: string, totalPrice:number): Promise<number>{
+        const applicationCupom = new ChangePriceCupomService();
+        const price = await applicationCupom.applicationCupomCart(id_cupom, totalPrice);
+        return parseFloat(price.toFixed(2));
     }
 }
 

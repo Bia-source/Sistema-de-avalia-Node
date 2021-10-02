@@ -63,6 +63,16 @@ class ChangePriceCupomService {
                 value: finalValue
         } };
     }
+
+    async applicationCupomCart(id_cupom: string, totalPrice: number): Promise<number> {
+        const cupomRepository = getCustomRepository(CupomRepositories);
+        let cupom: Cupom;
+        cupom = await cupomRepository.findOne({ id_cupom: id_cupom });
+        const { discount } = cupom;
+        const valueDiscount = totalPrice / 100 * discount;
+        const finalValue = totalPrice - valueDiscount;
+        return finalValue;
+    }
 }
 
 export { ChangePriceCupomService }
