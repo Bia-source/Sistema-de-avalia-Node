@@ -8,6 +8,7 @@ Organizando suas tarefas, avaliações e produtos como administrador e a experi�
 ## Funcionalidade implementadas
 ### Comum 
 ✅ Cadastro de usuário <br>
+✅ Autenticação por token <br>
 ✅ Login <br>
 ✅ Envio de avaliação <br>
 ✅ Busca da lista de avaliação recebidas e enviadas <br>
@@ -16,14 +17,20 @@ Organizando suas tarefas, avaliações e produtos como administrador e a experi�
 ✅ Envio de avaliação <br>
 ✅ Editar dados cadastrais <br>
 ✅ Criar cesta de compras <br>
+✅ Aplicação de desconto em apenas um produto <br>
 
 ### Administrador                          
 ✅ Atualização de permissão de usuário comum para adm <br> 
-✅ Busca de usuários (com informações extra) <br>
+✅ Busca de usuários (com informações extra) + filtros <br>
 ✅ Criação de produtos <br>
 ✅ Criação de cupons de desconto <br>
 ✅ Criação de categorias (tags) de avaliação <br>
 ✅ Atualização de estoque de produtos <br> 
+✅ Atualização do cupom de desconto <br>
+
+### Cliente
+✅ Recebimento de email automático de sucesso no cadastro <br>
+✅ Criptografia de senha <br>
 
 ## Version Engines
 
@@ -40,5 +47,17 @@ Organizando suas tarefas, avaliações e produtos como administrador e a experi�
 <img height="60em"  width="160em" src="https://github.com/typeorm/typeorm/raw/master/resources/logo_big.png" >
 ## Banco de Dados utilizado
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+
+## Como executar
+### Comandos: 
+- yarn install
+- yarn dev
+
+## Porta utilizada
+http://localhost:3000/{router}
+ 
+# Autora
+Beatriz Ferreira dos Santos  
+
 
 
