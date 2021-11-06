@@ -8,6 +8,7 @@ Organizando suas tarefas, avaliações e produtos como administrador e a experi�
 ## Funcionalidade implementadas
 ### Comum 
 ✅ Cadastro de usuário <br>
+✅ Criptografia de senha <br>
 ✅ Autenticação por token <br>
 ✅ Login <br>
 ✅ Envio de avaliação <br>
@@ -30,7 +31,6 @@ Organizando suas tarefas, avaliações e produtos como administrador e a experi�
 
 ### Cliente
 ✅ Recebimento de email automático de sucesso no cadastro <br>
-✅ Criptografia de senha <br>
 
 ## Version Engines
 
